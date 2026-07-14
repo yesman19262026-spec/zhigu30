@@ -1,0 +1,14 @@
+{
+  "mode": "unavailable",
+  "freshness": "等待首次快照",
+  "data_time": null,
+  "source": "AKShare（GitHub Actions 定时快照）",
+  "indices": [],
+  "breadth": {},
+  "turnover": {},
+  "sectors": [],
+  "summary": {
+    "title": "等待首次行情快照",
+    "text": "将项目推送到 GitHub 后，在 Actions 中手动运行一次“更新 AKShare 行情快照”。"
+  }
+}
