@@ -1,0 +1,3 @@
+.deploy-secrets.json
+.netlify-cli/
+.npm-cache/
