@@ -1,0 +1,38 @@
+name: 更新 AKShare 行情快照
+
+on:
+  workflow_dispatch:
+  schedule:
+    # UTC 01:00-07:59 = 中国标准时间 09:00-15:59，工作日约每 30 分钟。
+    - cron: "*/30 1-7 * * 1-5"
+
+permissions:
+  contents: write
+
+jobs:
+  update-snapshot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: 取得项目文件
+        uses: actions/checkout@v4
+
+      - name: 准备 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: 安装免费数据工具
+        run: python -m pip install --upgrade pip && python -m pip install -r backend/requirements.txt
+
+      - name: 生成市场快照
+        run: python scripts/fetch_market_snapshot.py
+
+      - name: 保存新快照到仓库
+        run: |
+          git config user.name "zhigu30-market-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/live-market.json
+          git diff --staged --quiet || git commit -m "chore: update market snapshot"
+          git push
