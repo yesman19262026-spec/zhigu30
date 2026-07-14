@@ -40,10 +40,7 @@ def _column(frame, names):
     return None
 
 
-def _load_market():
-    index_frame = ak.stock_zh_index_spot_em(symbol="沪深重要指数")
-    stock_frame = ak.stock_zh_a_spot_em()
-
+def _indices_from_frame(index_frame):
     name_col = _column(index_frame, ["名称", "指数名称"])
     code_col = _column(index_frame, ["代码", "指数代码"])
     last_col = _column(index_frame, ["最新价", "最新"])
@@ -59,9 +56,43 @@ def _load_market():
                 "last": _float(row.get(last_col)),
                 "change_pct": _float(row.get(pct_col)),
             })
+    return indices
+
+
+def _load_with_fallback(providers):
+    """Use independent AKShare sources so one upstream outage does not fail a snapshot."""
+    errors = []
+    for source, loader in providers:
+        for attempt in range(2):
+            try:
+                frame = loader()
+                if frame is not None and not frame.empty:
+                    return frame, source, errors
+                errors.append(f"{source}:empty")
+            except Exception as error:
+                errors.append(f"{source}:{type(error).__name__}")
+            if attempt == 0:
+                time.sleep(1)
+    return pd.DataFrame(), None, errors
+
+
+def _load_market():
+    # GitHub-hosted runners can occasionally be refused by Eastmoney. Sina is
+    # deliberately first for the public index snapshot, with Eastmoney as a fallback.
+    index_frame, index_source, notices = _load_with_fallback([
+        ("新浪指数", ak.stock_zh_index_spot_sina),
+        ("东方财富指数", lambda: ak.stock_zh_index_spot_em(symbol="沪深重要指数")),
+    ])
+    indices = _indices_from_frame(index_frame) if not index_frame.empty else []
+
+    stock_frame, stock_source, stock_errors = _load_with_fallback([
+        ("新浪A股", ak.stock_zh_a_spot),
+        ("东方财富A股", ak.stock_zh_a_spot_em),
+    ])
+    notices.extend(stock_errors)
 
     stock_pct_col = _column(stock_frame, ["涨跌幅"])
-    pct = pd.to_numeric(stock_frame[stock_pct_col], errors="coerce").dropna() if stock_pct_col else pd.Series(dtype=float)
+    pct = pd.to_numeric(stock_frame[stock_pct_col], errors="coerce").dropna() if stock_pct_col and not stock_frame.empty else pd.Series(dtype=float)
     breadth = {
         "up_count": int((pct > 0).sum()),
         "flat_count": int((pct == 0).sum()),
@@ -71,7 +102,7 @@ def _load_market():
     }
 
     amount_col = _column(stock_frame, ["成交额"])
-    amount_billion = _float(pd.to_numeric(stock_frame[amount_col], errors="coerce").sum() / 100_000_000) if amount_col else 0.0
+    amount_billion = _float(pd.to_numeric(stock_frame[amount_col], errors="coerce").sum() / 100_000_000) if amount_col and not stock_frame.empty else None
 
     sectors = []
     try:
@@ -87,21 +118,27 @@ def _load_market():
     except Exception:
         sectors = []
 
+    if not indices:
+        notices.append("未取得可用指数，本次保留上一份快照")
+    source_parts = [part for part in [index_source, stock_source] if part]
+    source = "AKShare（" + "、".join(source_parts) + "）" if source_parts else "AKShare（上游暂不可用）"
+    notice = "；".join(notices[:4]) if notices else "指数优先使用新浪数据源；市场宽度和行业数据可能延后。"
     now = datetime.now().astimezone()
     return {
         "mode": "akshare",
-        "freshness": "准实时",
+        "freshness": "定时快照（约30分钟延时）",
         "data_time": now.strftime("%Y-%m-%d %H:%M:%S %Z"),
-        "source": "AKShare",
+        "source": source,
         "upstream_source": "AKShare接口标注的公开数据源",
         "indices": indices,
         "breadth": breadth,
-        "turnover": {"amount_billion": round(amount_billion, 2), "ratio_5d": 0, "ratio_20d": 0},
+        "turnover": {"amount_billion": round(amount_billion, 2) if amount_billion is not None else None, "ratio_5d": 0, "ratio_20d": 0},
         "sectors": sectors,
         "summary": {
             "title": "先记录盘面事实，再形成解释",
-            "text": f"上涨{breadth['up_count']}家、下跌{breadth['down_count']}家。请同时核验指数、市场宽度、成交活跃度和行业分布。",
+                "text": f"上涨{breadth['up_count']}家、下跌{breadth['down_count']}家。请同时核验指数、市场宽度、成交活跃度和行业分布。",
         },
+        "service_notice": notice,
     }
 
 
