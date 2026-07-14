@@ -1,14 +1,51 @@
 {
-  "mode": "unavailable",
-  "freshness": "等待首次快照",
-  "data_time": null,
-  "source": "AKShare（GitHub Actions 定时快照）",
-  "indices": [],
-  "breadth": {},
-  "turnover": {},
+  "mode": "akshare",
+  "freshness": "定时快照（约30分钟延时）",
+  "data_time": "2026-07-14 12:07:07 CST",
+  "source": "AKShare（新浪指数、新浪A股） · GitHub Actions 定时快照",
+  "upstream_source": "AKShare接口标注的公开数据源",
+  "indices": [
+    {
+      "code": "sh000001",
+      "name": "上证指数",
+      "last": 3887.9225,
+      "change_pct": -0.661
+    },
+    {
+      "code": "sh000688",
+      "name": "科创50",
+      "last": 1925.4349,
+      "change_pct": -3.454
+    },
+    {
+      "code": "sz399001",
+      "name": "深证成指",
+      "last": 14461.201,
+      "change_pct": -0.425
+    },
+    {
+      "code": "sz399006",
+      "name": "创业板指",
+      "last": 3712.742,
+      "change_pct": -0.289
+    }
+  ],
+  "breadth": {
+    "up_count": 2490,
+    "flat_count": 131,
+    "down_count": 2906,
+    "limit_up_count": 47,
+    "limit_down_count": 69
+  },
+  "turnover": {
+    "amount_billion": 16348.05,
+    "ratio_5d": 0,
+    "ratio_20d": 0
+  },
   "sectors": [],
   "summary": {
-    "title": "等待首次行情快照",
-    "text": "将项目推送到 GitHub 后，在 Actions 中手动运行一次“更新 AKShare 行情快照”。"
-  }
+    "title": "先记录盘面事实，再形成解释",
+    "text": "上涨2490家、下跌2906家。请同时核验指数、市场宽度、成交活跃度和行业分布。"
+  },
+  "service_notice": "指数优先使用新浪数据源；市场宽度和行业数据可能延后。 此数据由 GitHub Actions 在交易日定时采集；可能因排程或上游接口延后。"
 }
