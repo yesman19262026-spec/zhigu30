@@ -1,72 +1,51 @@
 {
   "mode": "akshare",
   "freshness": "定时快照（约30分钟延时）",
-  "data_time": "2026-07-20 12:37:09 CST",
+  "data_time": "2026-07-20 15:59:41 CST",
   "source": "AKShare（新浪指数、新浪A股） · GitHub Actions 定时快照",
   "upstream_source": "AKShare接口标注的公开数据源",
   "indices": [
     {
       "code": "sh000001",
       "name": "上证指数",
-      "last": 3808.3888,
-      "change_pct": 1.175
+      "last": 3796.2814,
+      "change_pct": 0.853
     },
     {
       "code": "sh000688",
       "name": "科创50",
-      "last": 1712.1231,
-      "change_pct": -0.191
+      "last": 1718.6895,
+      "change_pct": 0.192
     },
     {
       "code": "sz399001",
       "name": "深证成指",
-      "last": 13735.814,
-      "change_pct": 0.211
+      "last": 13610.231,
+      "change_pct": -0.705
     },
     {
       "code": "sz399006",
       "name": "创业板指",
-      "last": 3467.323,
-      "change_pct": 1.129
+      "last": 3443.102,
+      "change_pct": 0.422
     }
   ],
   "breadth": {
-    "up_count": 2916,
-    "flat_count": 121,
-    "down_count": 2490,
-    "limit_up_count": 78,
-    "limit_down_count": 82
+    "up_count": 1739,
+    "flat_count": 78,
+    "down_count": 3710,
+    "limit_up_count": 75,
+    "limit_down_count": 538
   },
   "turnover": {
-    "amount_billion": 16795.85,
+    "amount_billion": 27173.01,
     "ratio_5d": 0,
     "ratio_20d": 0
   },
-  "sectors": [
-    {
-      "name": "油气及炼化工程",
-      "change_pct": 7.72
-    },
-    {
-      "name": "油服工程",
-      "change_pct": 6.57
-    },
-    {
-      "name": "油气开采Ⅲ",
-      "change_pct": 5.87
-    },
-    {
-      "name": "电子化学品Ⅱ",
-      "change_pct": -5.77
-    },
-    {
-      "name": "运动服装",
-      "change_pct": -5.85
-    }
-  ],
+  "sectors": [],
   "summary": {
     "title": "先记录盘面事实，再形成解释",
-    "text": "上涨2916家、下跌2490家。请同时核验指数、市场宽度、成交活跃度和行业分布。"
+    "text": "上涨1739家、下跌3710家。请同时核验指数、市场宽度、成交活跃度和行业分布。"
   },
   "service_notice": "指数优先使用新浪数据源；市场宽度和行业数据可能延后。 此数据由 GitHub Actions 在交易日定时采集；可能因排程或上游接口延后。"
 }
