@@ -1,72 +1,51 @@
 {
   "mode": "akshare",
   "freshness": "定时快照（约30分钟延时）",
-  "data_time": "2026-07-23 12:16:49 CST",
+  "data_time": "2026-07-23 15:07:22 CST",
   "source": "AKShare（新浪指数、新浪A股） · GitHub Actions 定时快照",
   "upstream_source": "AKShare接口标注的公开数据源",
   "indices": [
     {
       "code": "sh000001",
       "name": "上证指数",
-      "last": 3859.688,
-      "change_pct": -0.19
+      "last": 3876.7774,
+      "change_pct": 0.252
     },
     {
       "code": "sh000688",
       "name": "科创50",
-      "last": 1783.9372,
-      "change_pct": -4.094
+      "last": 1789.6941,
+      "change_pct": -3.784
     },
     {
       "code": "sz399001",
       "name": "深证成指",
-      "last": 14035.011,
-      "change_pct": -0.188
+      "last": 14123.307,
+      "change_pct": 0.44
     },
     {
       "code": "sz399006",
       "name": "创业板指",
-      "last": 3555.088,
-      "change_pct": -0.326
+      "last": 3575.52,
+      "change_pct": 0.246
     }
   ],
   "breadth": {
-    "up_count": 3225,
-    "flat_count": 146,
-    "down_count": 2158,
-    "limit_up_count": 89,
-    "limit_down_count": 10
+    "up_count": 4259,
+    "flat_count": 62,
+    "down_count": 1208,
+    "limit_up_count": 154,
+    "limit_down_count": 9
   },
   "turnover": {
-    "amount_billion": 14651.12,
+    "amount_billion": 22089.84,
     "ratio_5d": 0,
     "ratio_20d": 0
   },
-  "sectors": [
-    {
-      "name": "锂",
-      "change_pct": 6.86
-    },
-    {
-      "name": "白银",
-      "change_pct": 6.82
-    },
-    {
-      "name": "输变电设备",
-      "change_pct": 6.69
-    },
-    {
-      "name": "会展服务",
-      "change_pct": -5.01
-    },
-    {
-      "name": "集成电路制造",
-      "change_pct": -5.52
-    }
-  ],
+  "sectors": [],
   "summary": {
     "title": "先记录盘面事实，再形成解释",
-    "text": "上涨3225家、下跌2158家。请同时核验指数、市场宽度、成交活跃度和行业分布。"
+    "text": "上涨4259家、下跌1208家。请同时核验指数、市场宽度、成交活跃度和行业分布。"
   },
   "service_notice": "指数优先使用新浪数据源；市场宽度和行业数据可能延后。 此数据由 GitHub Actions 在交易日定时采集；可能因排程或上游接口延后。"
 }
