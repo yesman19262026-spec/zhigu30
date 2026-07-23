@@ -1,7 +1,7 @@
 {
   "mode": "akshare",
   "freshness": "定时快照（约30分钟延时）",
-  "data_time": "2026-07-23 15:07:22 CST",
+  "data_time": "2026-07-23 17:59:44 CST",
   "source": "AKShare（新浪指数、新浪A股） · GitHub Actions 定时快照",
   "upstream_source": "AKShare接口标注的公开数据源",
   "indices": [
@@ -38,7 +38,7 @@
     "limit_down_count": 9
   },
   "turnover": {
-    "amount_billion": 22089.84,
+    "amount_billion": 22090.03,
     "ratio_5d": 0,
     "ratio_20d": 0
   },
