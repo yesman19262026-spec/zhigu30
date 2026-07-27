@@ -18,6 +18,11 @@ const store = {
   selectedTerm: null,
   klineFrame: 0,
   klineTimer: null,
+  klineDraft: { open: 12.10, high: 12.50, low: 12.00, close: 12.35 },
+  klineDraftNote: "修改四个价格后，点击“生成这根 K 线”。",
+  financialCase: 0,
+  financialFocus: "income",
+  financialReveal: false,
   reduceMotion: localStorage.getItem("zstock-reduce-motion") === "true"
 };
 
@@ -57,6 +62,63 @@ function glossaryById(id) {
 function termChip(id) {
   const term = glossaryById(id);
   return term ? `<button class="term-chip" data-open-term="${term.id}">${escapeHtml(term.term)}</button>` : "";
+}
+
+// 三家虚构教学公司用于同题对照；数字为简化后的亿元口径，不能用于任何投资判断。
+const FINANCIAL_CASES = [
+  {
+    name: "安禾零售", tag: "稳健经营", context: "收入增长温和，回款稳定；适合练习把利润和现金流一起看。",
+    income: { title: "利润表 · 一年赚了什么", rows: [["营业收入", "120"], ["营业成本", "78"], ["毛利", "42"], ["期间费用", "25"], ["归母净利润", "12"]], reading: "收入 120 减去成本 78 后还有 42 的毛利；再扣除期间费用与税费，最终归母净利润为 12。读利润表时要继续追问毛利率和费用率是否持续。" },
+    balance: { title: "资产负债表 · 期末有什么与欠什么", rows: [["货币资金", "22"], ["应收账款", "8"], ["存货", "15"], ["有息负债", "18"], ["股东权益", "64"]], reading: "现金、应收和存货都是资产，但变现速度和质量不同。这里的现金 22 高于短期经营周转所需的压力，仍要结合债务期限进一步核验。" },
+    cash: { title: "现金流量表 · 钱实际怎样流动", rows: [["经营现金流", "14"], ["投资现金流", "-9"], ["筹资现金流", "-3"], ["期末现金净增加", "2"]], reading: "经营现金流 14 略高于净利润 12，说明当期利润大部分已经回到现金；投资流出 9 代表设备、门店等投入，需要与未来经营能力一起观察。" },
+    link: "同一组经营事实：净利润 12 进入股东权益的一部分；经营现金流 14 说明回款较顺畅；投资支出 9 则解释了为何现金净增加只有 2。三张表在讲同一个故事。"
+  },
+  {
+    name: "远航设备", tag: "周期制造", context: "利润改善明显，但应收账款与存货增长更快；适合练习“增长从哪里来”。",
+    income: { title: "利润表 · 增长是否可持续", rows: [["营业收入", "96"], ["营业成本", "67"], ["毛利", "29"], ["期间费用", "17"], ["归母净利润", "8"]], reading: "净利润较上一年提升，但只看这一个结果还不够。制造企业需要同时查看产品价格、订单、产能利用率和原材料成本。" },
+    balance: { title: "资产负债表 · 增长留下的痕迹", rows: [["货币资金", "7"], ["应收账款", "24"], ["存货", "28"], ["有息负债", "31"], ["股东权益", "42"]], reading: "应收账款和存货占用的资金较多，而现金较少、负债较高。它们是需要继续核验的线索，不等于已得出风险结论。" },
+    cash: { title: "现金流量表 · 利润为什么没变成现金", rows: [["经营现金流", "-2"], ["投资现金流", "-6"], ["筹资现金流", "10"], ["期末现金净增加", "2"]], reading: "净利润为 8，但经营现金流为 -2，可能与回款变慢、备货增加有关。筹资现金流为正说明当期现金增加依赖新增融资，下一步应查看债务期限和经营回款。" },
+    link: "利润表显示净利润 8；资产负债表中应收与存货占用资金；现金流量表的经营现金流为 -2。将三处放在一起，才能提出“增长质量是否需要核验”的问题。"
+  },
+  {
+    name: "新芽软件", tag: "高增长投入", context: "收入增长快、研发投入高；适合练习区分“亏损”与“现金耗用”。",
+    income: { title: "利润表 · 高投入阶段", rows: [["营业收入", "55"], ["营业成本", "18"], ["毛利", "37"], ["研发与销售费用", "45"], ["归母净利润", "-6"]], reading: "毛利空间较高，但研发和获客投入更高，因而出现亏损。亏损本身不自动说明好或坏，关键是收入质量、留存、竞争和现金储备。" },
+    balance: { title: "资产负债表 · 还能支撑多久", rows: [["货币资金", "36"], ["应收账款", "11"], ["合同负债", "9"], ["有息负债", "4"], ["股东权益", "48"]], reading: "现金储备较多、债务较低，但仍需要结合现金消耗速度、续费情况和融资能力估算经营缓冲，而不是只看某个估值倍数。" },
+    cash: { title: "现金流量表 · 现金消耗速度", rows: [["经营现金流", "-11"], ["投资现金流", "-2"], ["筹资现金流", "24"], ["期末现金净增加", "11"]], reading: "经营现金流为 -11，筹资现金流为 24。学习者应关注未来是否持续需要外部融资，以及融资条件变化会怎样影响经营。" },
+    link: "亏损 -6 和经营现金流 -11 提示公司处于投入期；期末现金增加来自筹资。三张表合读的重点是现金跑道与增长质量，而不是给出买卖结论。"
+  }
+];
+
+function normalizedOhlc() {
+  const raw = store.klineDraft;
+  const open = Number(raw.open) || 0;
+  const close = Number(raw.close) || 0;
+  const inputHigh = Number(raw.high) || 0;
+  const inputLow = Number(raw.low) || 0;
+  const high = Math.max(open, close, inputHigh);
+  const low = Math.min(open, close, inputLow);
+  return { open, high, low, close, corrected: high !== inputHigh || low !== inputLow };
+}
+
+function singleCandleSvg() {
+  const { open, high, low, close, corrected } = normalizedOhlc();
+  const min = Math.min(low, open, close) - 0.08;
+  const max = Math.max(high, open, close) + 0.08;
+  const y = value => 18 + (max - value) / (max - min || 1) * 142;
+  const up = close >= open;
+  const top = Math.min(y(open), y(close));
+  const body = Math.max(6, Math.abs(y(open) - y(close)));
+  const direction = up ? "阳线：收盘高于开盘" : "阴线：收盘低于开盘";
+  const correction = corrected ? "已自动把最高/最低价修正到能包含开盘与收盘的位置。" : "四个价格关系正确。";
+  return `<div class="draft-kline-wrap"><svg class="draft-kline-svg" viewBox="0 0 300 200" role="img" aria-label="根据输入开高低收生成的 K 线"><path class="chart-grid" d="M24 38H276M24 100H276M24 162H276"/><line class="draft-wick ${up ? "rise" : "fall"}" x1="150" x2="150" y1="${y(high)}" y2="${y(low)}"/><rect class="draft-body ${up ? "rise" : "fall"}" x="118" y="${top}" width="64" height="${body}" rx="4"/><text x="20" y="${y(high) - 5}">最高 ${high.toFixed(2)}</text><text x="190" y="${y(open) + 4}">开 ${open.toFixed(2)}</text><text x="190" y="${y(close) + 4}">收 ${close.toFixed(2)}</text><text x="20" y="${y(low) + 13}">最低 ${low.toFixed(2)}</text></svg><div class="draft-summary"><strong>${direction}</strong><span>${correction}</span></div></div>`;
+}
+
+function renderFinancialTrainer() {
+  const sample = FINANCIAL_CASES[store.financialCase];
+  const focus = sample[store.financialFocus];
+  const tabs = [["income", "利润表"], ["balance", "资产负债表"], ["cash", "现金流量表"], ["link", "三表联读"]];
+  const content = store.financialFocus === "link" ? `<p class="statement-reading">${sample.link}</p>` : `<div class="statement-grid">${focus.rows.map(([label, value]) => `<div><span>${label}</span><strong>${value}</strong><small>亿元</small></div>`).join("")}</div><p class="statement-reading">${focus.reading}</p>`;
+  return `<article class="card lab-card financial-trainer"><div class="lab-title-row"><div><p class="eyebrow">DAY 7–15 · 财报带练</p><h3>三张表不是三组孤立数字</h3></div><span class="status-badge">虚构案例</span></div><p>选择公司，再依次阅读一张表，最后切换到“三表联读”。先描述事实，再提出要核验的问题。</p><div class="scenario-strip">${FINANCIAL_CASES.map((item, index) => `<button class="scenario-chip ${index === store.financialCase ? "active" : ""}" data-financial-case="${index}">${item.name}</button>`).join("")}</div><div class="financial-context"><strong>${sample.name} · ${sample.tag}</strong><span>${sample.context}</span></div><div class="statement-tabs">${tabs.map(([id, label]) => `<button class="${id === store.financialFocus ? "active" : ""}" data-financial-focus="${id}">${label}</button>`).join("")}</div><div class="statement-sheet"><h4>${store.financialFocus === "link" ? "把三个角度连起来" : focus.title}</h4>${content}</div><button class="secondary-button" data-financial-reveal>${store.financialReveal ? "已显示阅读提示" : "核对本页应问什么"}</button>${store.financialReveal ? `<div class="result-box financial-result"><strong>正确的下一步不是下结论</strong><p>${store.financialFocus === "income" ? "追问收入来源、毛利与费用的变化是否持续。" : store.financialFocus === "balance" ? "追问应收、存货、债务的期限与质量，而不是只比较资产总额。" : store.financialFocus === "cash" ? "对照净利润、营运资本变化和资本开支，解释现金流的来源。" : "检查利润、资产负债与现金流是否能够相互解释；若不能，标记为待核验。"}</p></div>` : ""}</article>`;
 }
 
 function renderToday() {
@@ -196,9 +258,11 @@ function renderQuote() {
 function renderLabs() {
   const frameLabel = ["开盘价出现", "最高与最低形成影线", "收盘价决定实体方向", "成交量柱记录活跃度", "结合位置与后续确认"][store.klineFrame] || "完成一根K线";
   app.innerHTML = `
-    ${sectionHeading("互动实验室", "用合成数据练习，不形成任何交易信号")}
+    ${sectionHeading("互动训练场", "把概念变成一次可完成的观察；所有数据均为虚构教学案例")}
     <div class="lab-grid">
-      <article class="card lab-card kline-lab"><div class="lab-title-row"><div><p class="eyebrow">DAY 16–21</p><h3>K线生成动画</h3></div><button class="text-button" data-toggle-motion>${store.reduceMotion ? "开启动效" : "减少动效"}</button></div><p>逐步看开盘、最高、最低、收盘如何压缩为一根K线。</p>${candleSvg(Math.max(1, store.klineFrame + 1))}<div class="frame-label">第 ${store.klineFrame + 1} 步：${frameLabel}</div><div class="card-actions"><button class="secondary-button" data-kline-step>下一步</button><button class="primary-button" data-kline-play>${store.klineTimer ? "暂停" : "播放"}</button><button class="text-button" data-kline-reset>重播</button></div></article>
+      ${renderFinancialTrainer()}
+      <article class="card lab-card kline-lab"><div class="lab-title-row"><div><p class="eyebrow">DAY 16–21 · K线带练</p><h3>K线是怎样形成的</h3></div><button class="text-button" data-toggle-motion>${store.reduceMotion ? "开启动效" : "减少动效"}</button></div><p>先播放形成过程，再用下一张卡片亲手输入开、高、低、收。K 线只记录价格事实，不提供买卖结论。</p>${candleSvg(Math.max(1, store.klineFrame + 1))}<div class="frame-label">第 ${store.klineFrame + 1} 步：${frameLabel}</div><div class="card-actions"><button class="secondary-button" data-kline-step>下一步</button><button class="primary-button" data-kline-play>${store.klineTimer ? "暂停" : "播放"}</button><button class="text-button" data-kline-reset>重播</button></div></article>
+      <article class="card lab-card kline-builder"><h3>自己生成一根 K 线</h3><p>输入任意一组教学价格。系统会检查最高价、最低价是否能包含开盘与收盘。</p><div class="ohlc-fields"><div class="field"><label for="draftOpen">开盘 O</label><input id="draftOpen" type="number" step="0.01" value="${store.klineDraft.open}"></div><div class="field"><label for="draftHigh">最高 H</label><input id="draftHigh" type="number" step="0.01" value="${store.klineDraft.high}"></div><div class="field"><label for="draftLow">最低 L</label><input id="draftLow" type="number" step="0.01" value="${store.klineDraft.low}"></div><div class="field"><label for="draftClose">收盘 C</label><input id="draftClose" type="number" step="0.01" value="${store.klineDraft.close}"></div></div><div class="card-actions"><button class="primary-button" data-update-draft-kline>生成这根 K 线</button></div>${singleCandleSvg()}<p class="data-time">${store.klineDraftNote}</p></article>
       <article class="card lab-card"><h3>同一根长下影线</h3><p>位置、趋势、量能和后续确认共同决定解释。</p><div class="check-list"><button class="check-item secondary-button" data-kline-context="下跌末端">下跌末端</button><button class="check-item secondary-button" data-kline-context="上涨末端">上涨末端</button><button class="check-item secondary-button" data-kline-context="震荡区间">震荡区间</button></div><div id="klineFeedback" class="result-box">选择一个位置，比较还需要哪些证据。</div></article>
       <article class="card lab-card"><h3>估值情景器</h3><p>用盈利与估值倍数做教学演算，不输出目标价。</p><div class="field-row"><div class="field"><label for="earnings">假设盈利（亿元）</label><input id="earnings" type="number" value="10" min="0" step="0.1"></div><div class="field"><label for="pe">假设PE（倍）</label><input id="pe" type="number" value="15" min="0" step="0.1"></div></div><div class="result-box">情景市值约 <strong id="valuationResult">150.0亿元</strong><div class="data-time">${termChip("pe")} 只是一种估值表达</div></div></article>
       <article class="card lab-card"><h3>财报红旗练习</h3><p>勾选需要继续核验的线索，而不是给企业下结论。</p><div class="check-list">${["净利润增长，但经营现金流连续下降", "应收账款增速显著高于收入", "短期借款高，而可用现金很少", "审计机构频繁更换"].map((item, index) => `<label class="check-item"><input type="checkbox" class="risk-check" value="${index}"><span>${item}</span></label>`).join("")}</div><div class="result-box">已发现 <strong id="riskCount">0</strong> 个核验线索</div></article>
@@ -269,16 +333,20 @@ function openLesson(day) {
   if (!course) return;
   store.activeLesson = course;
   store.lessonAnswers = {};
+  const guide = course.content.guide;
+  const labLabel = course.module === "基本面" ? "去财报训练" : course.module === "技术面" ? "去 K线训练" : "去互动训练场";
   dialogContent.innerHTML = `
     <article class="lesson-body"><p class="lesson-number">DAY ${course.day} · ${course.module} · 核心约 ${course.duration} 分钟</p><h2>${course.title}</h2><p class="lesson-goal">${course.goal}</p>
     <section class="lesson-section"><h3>先判断</h3><p>${course.content.scenario}</p></section>
+    <section class="lesson-section guided-reading"><h3>${guide?.title || "先把概念讲清楚"}</h3>${(guide?.explain || course.points).map((paragraph, index) => `<div class="guided-step"><b>第 ${index + 1} 步</b><p>${paragraph}</p></div>`).join("")}</section>
     <section class="lesson-section"><h3>本课要建立的三个连接</h3>${course.points.map((point, index) => `<div class="concept-row"><b>${index + 1}</b><p>${point}</p></div>`).join("")}</section>
     <section class="lesson-section"><h3>术语预习</h3><div class="mini-term-row">${course.content.terms.length ? course.content.terms.map(termChip).join("") : `<span class="data-time">本课以框架和案例训练为主</span>`}</div></section>
-    <section class="lesson-section"><h3>案例拆解</h3><p>${course.content.caseStudy}</p><div class="notice">把“数据事实”“可能解释”“还要核验什么”写在三列中，避免把故事直接当结论。</div></section>
+    <section class="lesson-section"><h3>案例拆解</h3><p>${guide?.case || course.content.caseStudy}</p><div class="notice">把“数据事实”“可能解释”“还要核验什么”写在三列中，避免把故事直接当结论。</div></section>
     <section class="lesson-section"><h3>拓展理解</h3><p>${course.content.deepDive}</p></section>
+    ${course.content.lens ? `<section class="lesson-section investor-lens"><p class="eyebrow">思想镜头 · 非操作指令</p><h3>${course.content.lens.title}</h3><p>${course.content.lens.idea}</p><div class="lens-boundary"><strong>适用边界</strong><span>${course.content.lens.boundary}</span></div><small>延伸阅读：${course.content.lens.source}（概念转述，未摘录原文）</small></section>` : ""}
     <section class="lesson-section"><h3>风险与误区</h3><div class="risk-box">${course.risk}</div></section>
-    <section class="lesson-section"><h3>动手任务</h3><p>${course.content.practice}</p></section>
-    <section class="lesson-section"><h3>完成本课练习</h3>${course.checks.map((check, qIndex) => `<div class="check-card"><strong>${qIndex + 1}. ${check.q}</strong><div class="quiz-options">${check.options.map((option, optionIndex) => `<button class="quiz-option" data-lesson-answer="${qIndex}:${optionIndex}">${String.fromCharCode(65 + optionIndex)}. ${option}</button>`).join("")}</div><div class="quiz-feedback" data-feedback="${qIndex}"></div></div>`).join("")}<button class="primary-button" data-check-lesson="${course.day}">查看练习反馈</button></section>
+    <section class="lesson-section"><h3>动手任务</h3><p>${guide?.task || course.content.practice}</p><div class="card-actions"><button class="secondary-button" data-page-jump="labs">${labLabel}</button></div></section>
+    <section class="lesson-section"><h3>完成本课练习</h3><p class="data-time">依次练基础理解、情境应用与证据辨析；每题都对应当天案例。</p>${course.checks.map((check, qIndex) => `<div class="check-card"><em class="question-kind">${check.kind || "应用练习"}</em><strong>${qIndex + 1}. ${check.q}</strong><div class="quiz-options">${check.options.map((option, optionIndex) => `<button class="quiz-option" data-lesson-answer="${qIndex}:${optionIndex}">${String.fromCharCode(65 + optionIndex)}. ${option}</button>`).join("")}</div><div class="quiz-feedback" data-feedback="${qIndex}"></div></div>`).join("")}<button class="primary-button" data-check-lesson="${course.day}">查看练习反馈</button></section>
     <section class="lesson-section source-box"><h3>来源与版本</h3><p>${course.content.source}</p><small>内容版本：本地教学版 · 复核：${course.content.reviewed}。规则和市场制度上线前须按最新原文复核。</small></section>
     <div class="card-actions"><button class="primary-button" data-complete-lesson="${course.day}">${store.completed.has(course.day) ? "已完成 · 再次确认" : "完成本课"}</button><button class="secondary-button" data-page-jump="quote">回到模拟盘面</button></div>
     </article>`;
@@ -340,6 +408,22 @@ app.addEventListener("click", event => {
   if (quoteTarget) { store.quoteScenario = Number(quoteTarget.dataset.quoteScenario); return renderQuote(); }
   const modeTarget = event.target.closest("[data-quote-mode]");
   if (modeTarget) { store.quoteMode = modeTarget.dataset.quoteMode; return renderQuote(); }
+  const financialCase = event.target.closest("[data-financial-case]");
+  if (financialCase) { store.financialCase = Number(financialCase.dataset.financialCase); store.financialReveal = false; return renderLabs(); }
+  const financialFocus = event.target.closest("[data-financial-focus]");
+  if (financialFocus) { store.financialFocus = financialFocus.dataset.financialFocus; store.financialReveal = false; return renderLabs(); }
+  if (event.target.closest("[data-financial-reveal]")) { store.financialReveal = true; return renderLabs(); }
+  if (event.target.closest("[data-update-draft-kline]")) {
+    store.klineDraft = {
+      open: document.querySelector("#draftOpen").value,
+      high: document.querySelector("#draftHigh").value,
+      low: document.querySelector("#draftLow").value,
+      close: document.querySelector("#draftClose").value
+    };
+    const value = normalizedOhlc();
+    store.klineDraftNote = value.corrected ? "输入的最高/最低价不能包含开盘或收盘；系统已校正图形。请回头检查 OHLC 的基本关系。" : "四个价格关系成立：最高价 ≥ 开盘/收盘 ≥ 最低价。现在请描述实体与影线，而不是预测下一根。";
+    return renderLabs();
+  }
   if (event.target.closest("[data-kline-step]")) { store.klineFrame = (store.klineFrame + 1) % 5; return renderLabs(); }
   if (event.target.closest("[data-kline-play]")) return toggleKlineAnimation();
   if (event.target.closest("[data-kline-reset]")) { stopKlineAnimation(); store.klineFrame = 0; return renderLabs(); }
