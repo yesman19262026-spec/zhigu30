@@ -1,72 +1,72 @@
 {
   "mode": "akshare",
   "freshness": "定时快照（约30分钟延时）",
-  "data_time": "2026-07-29 12:13:25 CST",
+  "data_time": "2026-07-29 15:20:28 CST",
   "source": "AKShare（新浪指数、新浪A股） · GitHub Actions 定时快照",
   "upstream_source": "AKShare接口标注的公开数据源",
   "indices": [
     {
       "code": "sh000001",
       "name": "上证指数",
-      "last": 3793.181,
-      "change_pct": -0.528
+      "last": 3828.469,
+      "change_pct": 0.397
     },
     {
       "code": "sh000688",
       "name": "科创50",
-      "last": 1622.028,
-      "change_pct": -4.219
+      "last": 1678.7376,
+      "change_pct": -0.87
     },
     {
       "code": "sz399001",
       "name": "深证成指",
-      "last": 13452.052,
-      "change_pct": -0.427
+      "last": 13658.443,
+      "change_pct": 1.101
     },
     {
       "code": "sz399006",
       "name": "创业板指",
-      "last": 3311.319,
-      "change_pct": -0.472
+      "last": 3378.696,
+      "change_pct": 1.553
     }
   ],
   "breadth": {
-    "up_count": 3430,
-    "flat_count": 103,
-    "down_count": 2000,
-    "limit_up_count": 73,
-    "limit_down_count": 79
+    "up_count": 4252,
+    "flat_count": 66,
+    "down_count": 1215,
+    "limit_up_count": 101,
+    "limit_down_count": 30
   },
   "turnover": {
-    "amount_billion": 14890.75,
+    "amount_billion": 23109.89,
     "ratio_5d": 0,
     "ratio_20d": 0
   },
   "sectors": [
     {
       "name": "教育运营及其他",
-      "change_pct": 6.78
+      "change_pct": 7.59
     },
     {
       "name": "乳品",
-      "change_pct": 6.76
+      "change_pct": 7.06
     },
     {
       "name": "饮料乳品",
-      "change_pct": 6.52
+      "change_pct": 6.9
     },
     {
-      "name": "半导体材料",
-      "change_pct": -7.16
+      "name": "集成电路封测",
+      "change_pct": -3.28
     },
     {
-      "name": "半导体设备",
-      "change_pct": -7.91
+      "name": "橡胶助剂",
+      "change_pct": -3.52
     }
   ],
   "summary": {
     "title": "先记录盘面事实，再形成解释",
-    "text": "上涨3430家、下跌2000家。请同时核验指数、市场宽度、成交活跃度和行业分布。"
+    "text": "上涨4252家、下跌1215家。请同时核验指数、市场宽度、成交活跃度和行业分布。"
   },
   "service_notice": "指数优先使用新浪数据源；市场宽度和行业数据可能延后。 此数据由 GitHub Actions 在交易日定时采集；可能因排程或上游接口延后。"
 }
