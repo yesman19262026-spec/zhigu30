@@ -1,51 +1,72 @@
 {
   "mode": "akshare",
   "freshness": "定时快照（约30分钟延时）",
-  "data_time": "2026-08-04 18:11:14 CST",
+  "data_time": "2026-08-05 12:11:19 CST",
   "source": "AKShare（新浪指数、新浪A股） · GitHub Actions 定时快照",
   "upstream_source": "AKShare接口标注的公开数据源",
   "indices": [
     {
       "code": "sh000001",
       "name": "上证指数",
-      "last": 3822.2846,
-      "change_pct": 0.331
+      "last": 3873.5591,
+      "change_pct": 1.341
     },
     {
       "code": "sh000688",
       "name": "科创50",
-      "last": 1616.3582,
-      "change_pct": 4.087
+      "last": 1700.0508,
+      "change_pct": 5.178
     },
     {
       "code": "sz399001",
       "name": "深证成指",
-      "last": 13885.711,
-      "change_pct": 3.253
+      "last": 14101.896,
+      "change_pct": 1.557
     },
     {
       "code": "sz399006",
       "name": "创业板指",
-      "last": 3488.966,
-      "change_pct": 5.645
+      "last": 3519.863,
+      "change_pct": 0.886
     }
   ],
   "breadth": {
-    "up_count": 3642,
-    "flat_count": 147,
-    "down_count": 1746,
-    "limit_up_count": 248,
-    "limit_down_count": 2
+    "up_count": 3940,
+    "flat_count": 224,
+    "down_count": 1372,
+    "limit_up_count": 148,
+    "limit_down_count": 3
   },
   "turnover": {
-    "amount_billion": 22280.15,
+    "amount_billion": 17022.09,
     "ratio_5d": 0,
     "ratio_20d": 0
   },
-  "sectors": [],
+  "sectors": [
+    {
+      "name": "钨",
+      "change_pct": 9.02
+    },
+    {
+      "name": "半导体设备",
+      "change_pct": 8.07
+    },
+    {
+      "name": "半导体材料",
+      "change_pct": 7.86
+    },
+    {
+      "name": "快递",
+      "change_pct": -1.53
+    },
+    {
+      "name": "国有大型银行Ⅲ",
+      "change_pct": -1.64
+    }
+  ],
   "summary": {
     "title": "先记录盘面事实，再形成解释",
-    "text": "上涨3642家、下跌1746家。请同时核验指数、市场宽度、成交活跃度和行业分布。"
+    "text": "上涨3940家、下跌1372家。请同时核验指数、市场宽度、成交活跃度和行业分布。"
   },
   "service_notice": "指数优先使用新浪数据源；市场宽度和行业数据可能延后。 此数据由 GitHub Actions 在交易日定时采集；可能因排程或上游接口延后。"
 }
