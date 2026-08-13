@@ -1,72 +1,51 @@
 {
   "mode": "akshare",
   "freshness": "定时快照（约30分钟延时）",
-  "data_time": "2026-08-13 11:27:49 CST",
+  "data_time": "2026-08-13 13:19:15 CST",
   "source": "AKShare（新浪指数、新浪A股） · GitHub Actions 定时快照",
   "upstream_source": "AKShare接口标注的公开数据源",
   "indices": [
     {
       "code": "sh000001",
       "name": "上证指数",
-      "last": 3961.3896,
-      "change_pct": 0.373
+      "last": 3962.4941,
+      "change_pct": 0.401
     },
     {
       "code": "sh000688",
       "name": "科创50",
-      "last": 1769.6226,
-      "change_pct": 1.879
+      "last": 1767.8219,
+      "change_pct": 1.775
     },
     {
       "code": "sz399001",
       "name": "深证成指",
-      "last": 14514.566,
-      "change_pct": 0.695
+      "last": 14520.362,
+      "change_pct": 0.735
     },
     {
       "code": "sz399006",
       "name": "创业板指",
-      "last": 3656.571,
-      "change_pct": 1.513
+      "last": 3659.614,
+      "change_pct": 1.597
     }
   ],
   "breadth": {
-    "up_count": 2223,
-    "flat_count": 150,
-    "down_count": 3169,
-    "limit_up_count": 79,
-    "limit_down_count": 1
+    "up_count": 2192,
+    "flat_count": 138,
+    "down_count": 3212,
+    "limit_up_count": 87,
+    "limit_down_count": 2
   },
   "turnover": {
-    "amount_billion": 15858.69,
+    "amount_billion": 17362.16,
     "ratio_5d": 0,
     "ratio_20d": 0
   },
-  "sectors": [
-    {
-      "name": "医疗研发外包",
-      "change_pct": 7.34
-    },
-    {
-      "name": "医疗服务",
-      "change_pct": 5.26
-    },
-    {
-      "name": "其他数字媒体",
-      "change_pct": 5.16
-    },
-    {
-      "name": "白银",
-      "change_pct": -3.9
-    },
-    {
-      "name": "纺织鞋类制造",
-      "change_pct": -4.79
-    }
-  ],
+  "sectors": [],
   "summary": {
     "title": "先记录盘面事实，再形成解释",
-    "text": "上涨2223家、下跌3169家。请同时核验指数、市场宽度、成交活跃度和行业分布。"
+    "text": "上涨2192家、下跌3212家。请同时核验指数、市场宽度、成交活跃度和行业分布。"
   },
   "service_notice": "指数优先使用新浪数据源；市场宽度和行业数据可能延后。 此数据由 GitHub Actions 在交易日定时采集；可能因排程或上游接口延后。"
 }
