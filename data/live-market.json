@@ -1,72 +1,51 @@
 {
   "mode": "akshare",
   "freshness": "定时快照（约30分钟延时）",
-  "data_time": "2026-08-18 11:24:22 CST",
+  "data_time": "2026-08-18 12:08:58 CST",
   "source": "AKShare（新浪指数、新浪A股） · GitHub Actions 定时快照",
   "upstream_source": "AKShare接口标注的公开数据源",
   "indices": [
     {
       "code": "sh000001",
       "name": "上证指数",
-      "last": 3964.7593,
-      "change_pct": -0.449
+      "last": 3966.9918,
+      "change_pct": -0.393
     },
     {
       "code": "sh000688",
       "name": "科创50",
-      "last": 1770.9071,
-      "change_pct": -1.003
+      "last": 1776.0953,
+      "change_pct": -0.713
     },
     {
       "code": "sz399001",
       "name": "深证成指",
-      "last": 14528.231,
-      "change_pct": -1.197
+      "last": 14543.448,
+      "change_pct": -1.094
     },
     {
       "code": "sz399006",
       "name": "创业板指",
-      "last": 3685.489,
-      "change_pct": -1.462
+      "last": 3691.685,
+      "change_pct": -1.296
     }
   ],
   "breadth": {
     "up_count": 1503,
-    "flat_count": 120,
-    "down_count": 3921,
-    "limit_up_count": 74,
+    "flat_count": 106,
+    "down_count": 3935,
+    "limit_up_count": 78,
     "limit_down_count": 9
   },
   "turnover": {
-    "amount_billion": 16138.11,
+    "amount_billion": 16491.16,
     "ratio_5d": 0,
     "ratio_20d": 0
   },
-  "sectors": [
-    {
-      "name": "种子",
-      "change_pct": 11.52
-    },
-    {
-      "name": "食用菌",
-      "change_pct": 9.68
-    },
-    {
-      "name": "种植业",
-      "change_pct": 9.04
-    },
-    {
-      "name": "氨纶",
-      "change_pct": -3.35
-    },
-    {
-      "name": "会展服务",
-      "change_pct": -3.91
-    }
-  ],
+  "sectors": [],
   "summary": {
     "title": "先记录盘面事实，再形成解释",
-    "text": "上涨1503家、下跌3921家。请同时核验指数、市场宽度、成交活跃度和行业分布。"
+    "text": "上涨1503家、下跌3935家。请同时核验指数、市场宽度、成交活跃度和行业分布。"
   },
   "service_notice": "指数优先使用新浪数据源；市场宽度和行业数据可能延后。 此数据由 GitHub Actions 在交易日定时采集；可能因排程或上游接口延后。"
 }
