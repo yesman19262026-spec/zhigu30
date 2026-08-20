@@ -1,72 +1,51 @@
 {
   "mode": "akshare",
   "freshness": "定时快照（约30分钟延时）",
-  "data_time": "2026-08-20 14:53:45 CST",
+  "data_time": "2026-08-20 15:43:09 CST",
   "source": "AKShare（新浪指数、新浪A股） · GitHub Actions 定时快照",
   "upstream_source": "AKShare接口标注的公开数据源",
   "indices": [
     {
       "code": "sh000001",
       "name": "上证指数",
-      "last": 3902.585,
-      "change_pct": 0.21
+      "last": 3903.721,
+      "change_pct": 0.239
     },
     {
       "code": "sh000688",
       "name": "科创50",
-      "last": 1652.3862,
-      "change_pct": -0.907
+      "last": 1652.9721,
+      "change_pct": -0.872
     },
     {
       "code": "sz399001",
       "name": "深证成指",
-      "last": 13962.516,
-      "change_pct": 0.521
+      "last": 13972.78,
+      "change_pct": 0.595
     },
     {
       "code": "sz399006",
       "name": "创业板指",
-      "last": 3490.159,
-      "change_pct": 0.48
+      "last": 3495.589,
+      "change_pct": 0.636
     }
   ],
   "breadth": {
-    "up_count": 4124,
-    "flat_count": 106,
-    "down_count": 1317,
-    "limit_up_count": 126,
+    "up_count": 4096,
+    "flat_count": 105,
+    "down_count": 1346,
+    "limit_up_count": 131,
     "limit_down_count": 25
   },
   "turnover": {
-    "amount_billion": 20236.08,
+    "amount_billion": 20935.34,
     "ratio_5d": 0,
     "ratio_20d": 0
   },
-  "sectors": [
-    {
-      "name": "疫苗",
-      "change_pct": 13.73
-    },
-    {
-      "name": "诊断服务",
-      "change_pct": 10.13
-    },
-    {
-      "name": "生物制品",
-      "change_pct": 8.72
-    },
-    {
-      "name": "焦炭Ⅲ",
-      "change_pct": -3.11
-    },
-    {
-      "name": "焦炭Ⅱ",
-      "change_pct": -3.11
-    }
-  ],
+  "sectors": [],
   "summary": {
     "title": "先记录盘面事实，再形成解释",
-    "text": "上涨4124家、下跌1317家。请同时核验指数、市场宽度、成交活跃度和行业分布。"
+    "text": "上涨4096家、下跌1346家。请同时核验指数、市场宽度、成交活跃度和行业分布。"
   },
-  "service_notice": "指数优先使用新浪数据源；市场宽度和行业数据可能延后。 此数据由 GitHub Actions 在交易日定时采集；可能因排程或上游接口延后。"
+  "service_notice": "新浪A股:ConnectionError 此数据由 GitHub Actions 在交易日定时采集；可能因排程或上游接口延后。"
 }
