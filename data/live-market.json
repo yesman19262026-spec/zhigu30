@@ -1,15 +1,15 @@
 {
   "mode": "akshare",
   "freshness": "定时快照（约30分钟延时）",
-  "data_time": "2026-08-21 11:31:26 CST",
+  "data_time": "2026-08-21 12:20:12 CST",
   "source": "AKShare（新浪指数、新浪A股） · GitHub Actions 定时快照",
   "upstream_source": "AKShare接口标注的公开数据源",
   "indices": [
     {
       "code": "sh000001",
       "name": "上证指数",
-      "last": 3904.4746,
-      "change_pct": 0.019
+      "last": 3903.8054,
+      "change_pct": 0.002
     },
     {
       "code": "sh000688",
@@ -20,14 +20,14 @@
     {
       "code": "sz399001",
       "name": "深证成指",
-      "last": 14061.795,
-      "change_pct": 0.637
+      "last": 14061.445,
+      "change_pct": 0.635
     },
     {
       "code": "sz399006",
       "name": "创业板指",
-      "last": 3538.049,
-      "change_pct": 1.215
+      "last": 3537.984,
+      "change_pct": 1.213
     }
   ],
   "breadth": {
@@ -38,7 +38,7 @@
     "limit_down_count": 22
   },
   "turnover": {
-    "amount_billion": 12620.5,
+    "amount_billion": 12620.51,
     "ratio_5d": 0,
     "ratio_20d": 0
   },
