@@ -1,51 +1,51 @@
 {
   "mode": "akshare",
   "freshness": "定时快照（约30分钟延时）",
-  "data_time": "2026-09-17 13:49:42 CST",
+  "data_time": "2026-09-17 19:06:46 CST",
   "source": "AKShare（新浪指数、新浪A股） · GitHub Actions 定时快照",
   "upstream_source": "AKShare接口标注的公开数据源",
   "indices": [
     {
       "code": "sh000001",
       "name": "上证指数",
-      "last": 3878.7022,
-      "change_pct": -0.331
+      "last": 3875.6044,
+      "change_pct": -0.411
     },
     {
       "code": "sh000688",
       "name": "科创50",
-      "last": 1612.5687,
-      "change_pct": -0.224
+      "last": 1606.2869,
+      "change_pct": -0.612
     },
     {
       "code": "sz399001",
       "name": "深证成指",
-      "last": 13435.839,
-      "change_pct": -0.141
+      "last": 13409.908,
+      "change_pct": -0.333
     },
     {
       "code": "sz399006",
       "name": "创业板指",
-      "last": 3312.659,
-      "change_pct": 0.036
+      "last": 3298.31,
+      "change_pct": -0.398
     }
   ],
   "breadth": {
-    "up_count": 2399,
-    "flat_count": 208,
-    "down_count": 2957,
-    "limit_up_count": 61,
-    "limit_down_count": 2
+    "up_count": 2575,
+    "flat_count": 169,
+    "down_count": 2820,
+    "limit_up_count": 67,
+    "limit_down_count": 4
   },
   "turnover": {
-    "amount_billion": 14690.44,
+    "amount_billion": 18363.53,
     "ratio_5d": 0,
     "ratio_20d": 0
   },
   "sectors": [],
   "summary": {
     "title": "先记录盘面事实，再形成解释",
-    "text": "上涨2399家、下跌2957家。请同时核验指数、市场宽度、成交活跃度和行业分布。"
+    "text": "上涨2575家、下跌2820家。请同时核验指数、市场宽度、成交活跃度和行业分布。"
   },
   "service_notice": "指数优先使用新浪数据源；市场宽度和行业数据可能延后。 此数据由 GitHub Actions 在交易日定时采集；可能因排程或上游接口延后。"
 }
