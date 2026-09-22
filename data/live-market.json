@@ -1,72 +1,51 @@
 {
   "mode": "akshare",
   "freshness": "定时快照（约30分钟延时）",
-  "data_time": "2026-09-22 13:55:04 CST",
+  "data_time": "2026-09-22 19:04:58 CST",
   "source": "AKShare（新浪指数、新浪A股） · GitHub Actions 定时快照",
   "upstream_source": "AKShare接口标注的公开数据源",
   "indices": [
     {
       "code": "sh000001",
       "name": "上证指数",
-      "last": 3956.7065,
-      "change_pct": 0.172
+      "last": 3952.128,
+      "change_pct": 0.056
     },
     {
       "code": "sh000688",
       "name": "科创50",
-      "last": 1676.7394,
-      "change_pct": 1.162
+      "last": 1665.0418,
+      "change_pct": 0.456
     },
     {
       "code": "sz399001",
       "name": "深证成指",
-      "last": 13785.922,
-      "change_pct": 0.407
+      "last": 13723.735,
+      "change_pct": -0.046
     },
     {
       "code": "sz399006",
       "name": "创业板指",
-      "last": 3421.461,
-      "change_pct": 0.643
+      "last": 3399.93,
+      "change_pct": 0.01
     }
   ],
   "breadth": {
-    "up_count": 2535,
-    "flat_count": 198,
-    "down_count": 2833,
-    "limit_up_count": 81,
-    "limit_down_count": 7
+    "up_count": 2374,
+    "flat_count": 163,
+    "down_count": 3029,
+    "limit_up_count": 89,
+    "limit_down_count": 10
   },
   "turnover": {
-    "amount_billion": 17506.51,
+    "amount_billion": 21534.08,
     "ratio_5d": 0,
     "ratio_20d": 0
   },
-  "sectors": [
-    {
-      "name": "燃料电池",
-      "change_pct": 11.31
-    },
-    {
-      "name": "其他家电Ⅱ",
-      "change_pct": 4.95
-    },
-    {
-      "name": "其他家电Ⅲ",
-      "change_pct": 4.95
-    },
-    {
-      "name": "旅游综合",
-      "change_pct": -2.57
-    },
-    {
-      "name": "涂料",
-      "change_pct": -5.32
-    }
-  ],
+  "sectors": [],
   "summary": {
     "title": "先记录盘面事实，再形成解释",
-    "text": "上涨2535家、下跌2833家。请同时核验指数、市场宽度、成交活跃度和行业分布。"
+    "text": "上涨2374家、下跌3029家。请同时核验指数、市场宽度、成交活跃度和行业分布。"
   },
   "service_notice": "指数优先使用新浪数据源；市场宽度和行业数据可能延后。 此数据由 GitHub Actions 在交易日定时采集；可能因排程或上游接口延后。"
 }
