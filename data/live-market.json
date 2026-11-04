@@ -1,72 +1,51 @@
 {
   "mode": "akshare",
   "freshness": "定时快照（约30分钟延时）",
-  "data_time": "2026-11-03 15:38:34 CST",
+  "data_time": "2026-11-04 15:17:08 CST",
   "source": "AKShare（新浪指数、新浪A股） · GitHub Actions 定时快照",
   "upstream_source": "AKShare接口标注的公开数据源",
   "indices": [
     {
       "code": "sh000001",
       "name": "上证指数",
-      "last": 3608.0976,
-      "change_pct": -0.823
+      "last": 3686.1725,
+      "change_pct": 2.164
     },
     {
       "code": "sh000688",
       "name": "科创50",
-      "last": 1151.2826,
-      "change_pct": -3.814
+      "last": 1265.4717,
+      "change_pct": 9.918
     },
     {
       "code": "sz399001",
       "name": "深证成指",
-      "last": 10876.989,
-      "change_pct": -1.214
+      "last": 11335.687,
+      "change_pct": 4.217
     },
     {
       "code": "sz399006",
       "name": "创业板指",
-      "last": 2391.652,
-      "change_pct": -2.727
+      "last": 2544.73,
+      "change_pct": 6.401
     }
   ],
   "breadth": {
-    "up_count": 2107,
-    "flat_count": 161,
-    "down_count": 3309,
-    "limit_up_count": 59,
-    "limit_down_count": 93
+    "up_count": 4667,
+    "flat_count": 132,
+    "down_count": 778,
+    "limit_up_count": 365,
+    "limit_down_count": 16
   },
   "turnover": {
-    "amount_billion": 17147.27,
+    "amount_billion": 20514.97,
     "ratio_5d": 0,
     "ratio_20d": 0
   },
-  "sectors": [
-    {
-      "name": "教育运营及其他",
-      "change_pct": 9.84
-    },
-    {
-      "name": "涂料",
-      "change_pct": 5.07
-    },
-    {
-      "name": "氨纶",
-      "change_pct": 4.17
-    },
-    {
-      "name": "通信网络设备及器件",
-      "change_pct": -6.62
-    },
-    {
-      "name": "半导体设备",
-      "change_pct": -6.76
-    }
-  ],
+  "sectors": [],
   "summary": {
     "title": "先记录盘面事实，再形成解释",
-    "text": "上涨2107家、下跌3309家。请同时核验指数、市场宽度、成交活跃度和行业分布。"
+    "text": "上涨4667家、下跌778家。请同时核验指数、市场宽度、成交活跃度和行业分布。"
   },
   "service_notice": "指数优先使用新浪数据源；市场宽度和行业数据可能延后。 此数据由 GitHub Actions 在交易日定时采集；可能因排程或上游接口延后。"
 }
