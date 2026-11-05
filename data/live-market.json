@@ -1,72 +1,72 @@
 {
   "mode": "akshare",
   "freshness": "定时快照（约30分钟延时）",
-  "data_time": "2026-11-04 23:40:42 CST",
+  "data_time": "2026-11-05 15:46:10 CST",
   "source": "AKShare（新浪指数、新浪A股） · GitHub Actions 定时快照",
   "upstream_source": "AKShare接口标注的公开数据源",
   "indices": [
     {
       "code": "sh000001",
       "name": "上证指数",
-      "last": 3686.1725,
-      "change_pct": 2.164
+      "last": 3689.9109,
+      "change_pct": 0.101
     },
     {
       "code": "sh000688",
       "name": "科创50",
-      "last": 1265.4717,
-      "change_pct": 9.918
+      "last": 1286.675,
+      "change_pct": 1.676
     },
     {
       "code": "sz399001",
       "name": "深证成指",
-      "last": 11335.687,
-      "change_pct": 4.217
+      "last": 11471.094,
+      "change_pct": 1.195
     },
     {
       "code": "sz399006",
       "name": "创业板指",
-      "last": 2544.73,
-      "change_pct": 6.401
+      "last": 2566.803,
+      "change_pct": 0.867
     }
   ],
   "breadth": {
-    "up_count": 4667,
-    "flat_count": 132,
-    "down_count": 778,
-    "limit_up_count": 365,
-    "limit_down_count": 16
+    "up_count": 4868,
+    "flat_count": 84,
+    "down_count": 625,
+    "limit_up_count": 132,
+    "limit_down_count": 5
   },
   "turnover": {
-    "amount_billion": 20514.97,
+    "amount_billion": 21347.65,
     "ratio_5d": 0,
     "ratio_20d": 0
   },
   "sectors": [
     {
-      "name": "半导体设备",
-      "change_pct": 15.22
+      "name": "光伏辅材",
+      "change_pct": 9.94
     },
     {
-      "name": "半导体材料",
-      "change_pct": 11.89
+      "name": "光伏加工设备",
+      "change_pct": 9.58
     },
     {
-      "name": "半导体",
-      "change_pct": 10.64
+      "name": "视频媒体",
+      "change_pct": 9.27
     },
     {
-      "name": "水产饲料",
-      "change_pct": -3.12
+      "name": "冶钢辅料",
+      "change_pct": -1.99
     },
     {
-      "name": "电信运营商",
-      "change_pct": -3.27
+      "name": "动力煤",
+      "change_pct": -2.2
     }
   ],
   "summary": {
     "title": "先记录盘面事实，再形成解释",
-    "text": "上涨4667家、下跌778家。请同时核验指数、市场宽度、成交活跃度和行业分布。"
+    "text": "上涨4868家、下跌625家。请同时核验指数、市场宽度、成交活跃度和行业分布。"
   },
-  "service_notice": "指数优先使用新浪数据源；市场宽度和行业数据可能延后。 此数据由 GitHub Actions 在交易日定时采集；可能因排程或上游接口延后。"
+  "service_notice": "新浪A股:ReadTimeout 此数据由 GitHub Actions 在交易日定时采集；可能因排程或上游接口延后。"
 }
