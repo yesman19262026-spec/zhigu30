@@ -1,72 +1,78 @@
 {
   "mode": "akshare",
   "freshness": "定时快照（约30分钟延时）",
-  "data_time": "2026-11-05 15:46:10 CST",
-  "source": "AKShare（新浪指数、新浪A股） · GitHub Actions 定时快照",
+  "data_time": "2026-11-06 15:52:46 CST",
+  "source": "AKShare（东方财富指数、东方财富A股） · GitHub Actions 定时快照",
   "upstream_source": "AKShare接口标注的公开数据源",
   "indices": [
     {
-      "code": "sh000001",
+      "code": "000001",
       "name": "上证指数",
-      "last": 3689.9109,
-      "change_pct": 0.101
+      "last": 3649.18,
+      "change_pct": -1.1
     },
     {
-      "code": "sh000688",
-      "name": "科创50",
-      "last": 1286.675,
-      "change_pct": 1.676
-    },
-    {
-      "code": "sz399001",
+      "code": "399001",
       "name": "深证成指",
-      "last": 11471.094,
-      "change_pct": 1.195
+      "last": 11175.78,
+      "change_pct": -2.57
     },
     {
-      "code": "sz399006",
+      "code": "899050",
+      "name": "北证50",
+      "last": 888.48,
+      "change_pct": -2.37
+    },
+    {
+      "code": "399006",
       "name": "创业板指",
-      "last": 2566.803,
-      "change_pct": 0.867
+      "last": 2465.23,
+      "change_pct": -3.96
+    },
+    {
+      "code": "000688",
+      "name": "科创50",
+      "last": 1253.2,
+      "change_pct": -2.6
     }
   ],
   "breadth": {
-    "up_count": 4868,
-    "flat_count": 84,
-    "down_count": 625,
-    "limit_up_count": 132,
-    "limit_down_count": 5
+    "up_count": 758,
+    "flat_count": 76,
+    "down_count": 4741,
+    "limit_up_count": 43,
+    "limit_down_count": 25
   },
   "turnover": {
-    "amount_billion": 21347.65,
+    "amount_billion": 16716.1,
     "ratio_5d": 0,
     "ratio_20d": 0
   },
   "sectors": [
     {
-      "name": "光伏辅材",
-      "change_pct": 9.94
-    },
-    {
-      "name": "光伏加工设备",
-      "change_pct": 9.58
-    },
-    {
       "name": "视频媒体",
-      "change_pct": 9.27
+      "change_pct": 6.25
     },
     {
-      "name": "冶钢辅料",
-      "change_pct": -1.99
+      "name": "种子",
+      "change_pct": 4.64
     },
     {
-      "name": "动力煤",
-      "change_pct": -2.2
+      "name": "卫浴电器",
+      "change_pct": 3.46
+    },
+    {
+      "name": "元件",
+      "change_pct": -5.13
+    },
+    {
+      "name": "印制电路板",
+      "change_pct": -5.86
     }
   ],
   "summary": {
     "title": "先记录盘面事实，再形成解释",
-    "text": "上涨4868家、下跌625家。请同时核验指数、市场宽度、成交活跃度和行业分布。"
+    "text": "上涨758家、下跌4741家。请同时核验指数、市场宽度、成交活跃度和行业分布。"
   },
-  "service_notice": "新浪A股:ReadTimeout 此数据由 GitHub Actions 在交易日定时采集；可能因排程或上游接口延后。"
+  "service_notice": "新浪指数:ReadTimeout；新浪指数:ReadTimeout；新浪A股:ReadTimeout；新浪A股:ReadTimeout 此数据由 GitHub Actions 在交易日定时采集；可能因排程或上游接口延后。"
 }
